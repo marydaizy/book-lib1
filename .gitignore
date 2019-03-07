@@ -1,0 +1,24 @@
+/venv
+@login_required
+@app.route("/detail/<int:book_id>/comment", methods=["GET", "POST"])
+def comment(book_id):
+    form=ReviewForm()
+    if form.validate_on_submit():
+        comment=Reveiw(review=form.review.data, comment=form.comment.data, book_id=book_id,writer=current_user)
+        db.session.add(comment)
+        db.session.commit()
+        flask('comment added', 'info')
+        return render_template("reviews.html", title='comment', form=form, legend='comment')
+
+        class ReviewForm(FlaskForm):
+    # review = SelectField('Rating', validators=[DataRequired()], Choices=[('1','1')('2','2')('3','3')])
+    comment = StringField('Comment')
+    submit = SubmitField('Submit')
+    <div>
+    <button><a href="{{ url_for('comment', book_id=book.id)}}">Comment!</a></button>
+</div>
+{% for review in reviews %}
+{{review.writer.username}}
+{{}review.review}
+{{review.comment}}
+{% endfor %}

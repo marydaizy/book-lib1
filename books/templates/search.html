@@ -22,19 +22,19 @@
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
+               
             </div>
-
+            
         </form>
     </div>
     <div>
         {% for book in books %}
-           <a href="{{ url_for('detail', book_id=book.id) }}"> {{book.id}}
-            {{book.isbn}}
-            {{book.title}}
-            {{book.author}}
-            {{book.year}}</a>
+                <ul>
+                    <a href="{{url_for('comment',book_id=book.id)}}"> {{ book.id }}<b>{{ book.title }}</b><i>written by </i>{{ book.author }} <i>in the year </i>{{ book.year }} </a>
+                </ul>
+           
         {% endfor %}
-
-
     </div>
+
+<a class="btn-small right blue" href="{{ url_for('logout')}}">logout</a>
 {% endblock body %}

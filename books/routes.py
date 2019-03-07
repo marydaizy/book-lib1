@@ -1,14 +1,14 @@
 from flask import render_template, url_for, flash, redirect, request
 from books import app, db, bcrypt
-from books.forms import RegistrationForm, LoginForm,SearchForm
+from books.forms import RegistrationForm, LoginForm, SearchForm, ReviewForm
 from books.models import Users, Books
 from flask_login import login_user, current_user, logout_user, login_required
 
 
 
 
+
 @app.route("/")
-@app.route("/home")
 def index():
     return render_template('index.html')
 
@@ -17,7 +17,7 @@ def index():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -50,7 +50,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
+@login_required
 @app.route("/search", methods=['GET', 'POST'])
 def search():
     form = SearchForm()
@@ -60,13 +60,31 @@ def search():
         return render_template('search.html', books = books, form=form)
     books = Books.query.all()
     return render_template('search.html', books = books, form=form)
-    
 
-@app.route("/detail/<int:book_id>", methods=["GET", "POST"])
-def detail(book_id):
-    if current_user.is_authenticated:
-        books=Books.query.filter_by(id=book_id).first()
-        return render_template("detail.html", books=books, error_message="Please Login First", work="Login")
+# @app.route("/detail/<int:book_id>",methods=['GET','POST'])
+# @login_required
+# def detail(book_id):
+#     reviews=Review.query.filter_by(book_id=book_id).all()
+#     book=Book.query.get_or_404(book_id)
+#     return render_template("detail.html", success=True, book=book, reviews=reviews)
+    
+@login_required
+@app.route("/detail/<int:book_id>/comment", methods=["GET", "POST"])
+def comment(book_id):
+    form=ReviewForm()
+    books=Books.query.filter_by(id=book_id).first()
+    if form.validate_on_submit():
+        comment=Reveiw(review=form.review.data, comment=form.comment.data)
+        db.session.add(comment)
+        db.session.commit()
+        flask('comment added', 'info')
+    return render_template("detail.html", title='comment', form=form, books=books, legend='comment')
+# @login_required
+# @app.route("/detail/<int:book_id>", methods=["GET", "POST"])
+# def detail(book_id):
+#     # if current_user.is_authenticated:
+#         books=Books.query.filter_by(id=book_id).first()
+#         return render_template("detail.html", books=books, error_message="Please Login First")
     
 
 

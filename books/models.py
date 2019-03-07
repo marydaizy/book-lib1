@@ -28,5 +28,16 @@ class Books(db.Model):
     author = db.Column(db.String(60), nullable=False)
     year = db.Column(db.Integer, primary_key=True)
 
-    # def __str__(self):
-    #     return self.title
+    
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    reviews= db.Column(db.Integer, nullable=False)
+    book_id=db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
+    user_id=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    comment=db.Column(db.String(), nullable=False)
+
+
+
+    def __str__(self):
+        return self.title

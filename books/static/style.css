@@ -1,14 +1,21 @@
 body{
-    background: style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnqHYIgj89hMKwluQQUgZcduccOQiodNehrNamAB3O7JWdFfupDQ; background-repeat:no-repeat;  background-size:100%; background-position: 50% 50%";
+    background-image:url('bk.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 .navbar {
     border-radius: 0;
 }
+#lab{
+    color: #000;
+   font-size: 40px;
+}
 
-a.navbar-brand {
+a.navbar-brand b {
     font-family:'algeria, san-serif' ;
-    font-size: 40px;
+    font-size: 80px;
     text-align: center;
+    color:#000;
 
 }
 
