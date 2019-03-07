@@ -34,16 +34,9 @@
     </table>
 </div>
 </div>
+
 <div>
-    <button><a href="{{ url_for('comment', book_id=books.id)}}">Comment!</a></button>
-</div>
-{% for review in reviews %}
-{{review.writer.username}}
-{{review.review}}
-{{review.comment}}
-{% endfor %}
-<!-- <div>
     <button class="btn-large blue">Comment!</button>
-</div> -->
+</div>
 
 {% endblock %}

@@ -30,7 +30,7 @@
     <div>
         {% for book in books %}
                 <ul>
-                    <a href="{{url_for('comment',book_id=book.id)}}"> {{ book.id }}<b>{{ book.title }}</b><i>written by </i>{{ book.author }} <i>in the year </i>{{ book.year }} </a>
+                    <a href="{{url_for('detail',book_id=book.id)}}"> {{ book.id }}<b>{{ book.title }}</b><i>written by </i>{{ book.author }} <i>in the year </i>{{ book.year }} </a>
                 </ul>
            
         {% endfor %}
